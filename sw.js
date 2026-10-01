@@ -1,4 +1,4 @@
-const CACHE='javier-barbate-pwa-v2';
+const CACHE='ciudadano-v3';
 const CORE=['./','./index.html','./manifest.webmanifest'];
 
 self.addEventListener('install',event=>{
