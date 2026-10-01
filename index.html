@@ -84,11 +84,34 @@ h2{font-size:clamp(2.5rem,6vw,5.4rem);letter-spacing:-.085em;line-height:.9}
 .card .art.no-photo:before{content:"BARBATE 360º";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:900;letter-spacing:.12em}
 .card .art.no-photo .art-label{display:none}
 @media(max-width:580px){.card .art{height:190px}.hero{background-position:58% center!important}.hero-copy{background:linear-gradient(90deg,#10253a35,transparent)}}
+
+/* Directorio territorial barrio a barrio */
+.neighborhood-tools{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+.neighborhood-tools input,.neighborhood-tools select{border:1px solid var(--line);border-radius:3px;padding:13px;background:#fbf9f4;color:var(--ink);font:inherit}
+.neighborhood-tools input{flex:1;min-width:220px}
+.neighborhood-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.neighborhood-card{display:flex;flex-direction:column;align-items:stretch;text-align:left;gap:9px;background:#fbf9f4;border:1px solid var(--line);padding:18px;min-height:170px;color:var(--ink);border-radius:4px;cursor:pointer}
+.neighborhood-card:hover,.neighborhood-card:focus-visible{border-color:var(--r);outline:2px solid #d91f3520}
+.neighborhood-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.neighborhood-type{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;font-weight:900;color:var(--muted)}
+.neighborhood-status{display:inline-block;background:#eee8dc;padding:5px 7px;font-size:.64rem;font-weight:850;border-radius:2px}
+.neighborhood-card h3{font-size:1.15rem;letter-spacing:-.035em;margin:2px 0}
+.neighborhood-card p{font-size:.84rem;line-height:1.5;color:var(--muted);margin:0}
+.neighborhood-card .open-detail{margin-top:auto;padding-top:8px;font-size:.76rem;font-weight:900;color:var(--r)}
+@media(max-width:900px){.neighborhood-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:580px){.neighborhood-grid{grid-template-columns:1fr}.neighborhood-card{min-height:unset}.neighborhood-tools input{min-width:100%}}
 </style></head><body>
 <header class="top"><nav><a class="brand" href="#inicio"><span class="logo">PSOE<br>♡</span><span>Javier<small>BARBATE · 2027</small></span></a><div class="navlinks"><a href="#programa">Programa</a><a href="#territorio">Barbate 360º</a><a href="#actualidad">Actualidad</a><a href="#auditoria">Auditoría</a><a href="#fuentes">Fuentes</a></div><a class="cta" href="#programa">Explorar programa ↗</a></nav></header>
 <main class="wrap" id="inicio"><section class="hero"><div class="hero-copy"><div class="eyebrow">Barbate · información ciudadana</div><h1>Barbate,<br><span>barrio a barrio.</span></h1><p>Consulta las propuestas, revisa las actuaciones y comprueba qué información está confirmada y cuál falta por actualizar. Cada dato debe poder comprobarse en su fuente.</p><div class="actions"><a class="btn" href="#programa">Ver propuestas →</a><a class="btn ghost" href="#territorio">Consultar mi zona ↗</a></div></div></section>
 <div class="stats"><div class="stat"><b>12</b><span>Temas que nos afectan</span></div><div class="stat"><b>360º</b><span>Visión territorial</span></div><div class="stat"><b>Fuentes</b><span>Información consultable</span></div><div class="stat"><b>2027</b><span>Horizonte del proyecto</span></div></div>
 <section class="section" id="territorio"><div class="head"><div><div class="kicker">Conoce el municipio</div><h2>Barbate 360º</h2></div><p>Conoce las necesidades y proyectos de cada barrio y núcleo del municipio.</p></div><div class="territory"><div class="panel intro"><div><div class="kicker">Territorio · proximidad</div><h3>Un municipio.<br><em>Muchas realidades.</em></h3><p>Elige una zona para conocer sus actuaciones, proyectos y asuntos de interés.</p></div></div><div class="panel map"><div id="realMap" class="real-map" aria-label="Mapa interactivo de Barbate y sus núcleos"></div><div class="mapcap">Mapa geográfico · selecciona un marcador</div></div></div></section>
+<section class="section" id="barrios">
+<div class="head"><div><div class="kicker">Directorio territorial</div><h2>Todos los barrios y núcleos</h2></div><p>Un inventario de trabajo para investigar cada zona por separado. Los nombres, límites y adscripciones se marcarán como pendientes hasta contrastarlos con cartografía y documentación municipal.</p></div>
+<div class="note">Estado inicial: inventario en revisión. Esta lista no afirma que existan incidencias en cada zona ni sustituye una delimitación oficial. Las fichas se completarán con fuentes, fechas y actuaciones verificables.</div>
+<div class="neighborhood-tools"><input id="neighborhoodSearch" type="search" placeholder="Buscar barrio, barriada o núcleo…" aria-label="Buscar barrio o núcleo"><select id="neighborhoodFilter" aria-label="Filtrar por tipo de zona"><option value="all">Todos los tipos</option><option value="barrio">Barrios y barriadas</option><option value="nucleo">Núcleos y pedanías</option><option value="rural">Entorno rural y diseminados</option><option value="sector">Sectores pendientes de delimitar</option></select></div>
+<div id="neighborhoodGrid" class="neighborhood-grid" aria-live="polite"></div>
+<p id="neighborhoodCount" style="color:var(--muted);font-size:.8rem;margin-top:14px"></p>
+</section>
 <section class="section" id="programa"><div class="head"><div><div class="kicker">Temas que nos afectan</div><h2>Propuestas para Barbate</h2></div><p>Busca por tema y consulta qué se propone, quién tiene la competencia y qué datos faltan por confirmar.</p></div><div class="filters"><input id="search" type="search" placeholder="¿Qué tema quieres consultar?" aria-label="Buscar área"><select id="filter" aria-label="Filtrar por tema"><option value="all">Todos los temas</option><option value="Servicios públicos">01 · Servicios públicos</option><option value="Vivienda">02 · Vivienda</option><option value="Pesca y puerto">03 · Pesca y puerto</option><option value="Limpieza y residuos">04 · Limpieza y residuos</option><option value="Urbanismo">05 · Urbanismo</option><option value="Turismo">06 · Turismo</option><option value="Movilidad e infraestructuras">07 · Movilidad e infraestructuras</option><option value="Seguridad">08 · Seguridad</option><option value="Medio ambiente">09 · Medio ambiente</option><option value="Cultura y patrimonio">10 · Cultura y patrimonio</option><option value="Juventud y deporte">11 · Juventud y deporte</option><option value="Mayores e inclusión">12 · Mayores e inclusión</option></select></div><div class="areas" id="areas"></div></section>
 <section class="section" id="actualidad"><div class="head"><div><div class="kicker">Actuaciones y propuestas</div><h2>Actuaciones y propuestas</h2></div><p>En cada ficha separamos lo que una administración ha publicado de lo que se propone hacer y de lo que aún debe comprobarse.</p></div><div class="proposals" id="proposals"></div></section>
 <section class="section"><div class="features"><article class="feature"><div class="eyebrow">Perfil público</div><h3>Quién es Javier Rodríguez</h3><p>Consulta su trayectoria y declaraciones públicas con fechas y enlaces a las fuentes originales.</p><button class="btn" id="profile">Ver información pública ↗</button></article><article class="feature red"><div class="eyebrow">Para comprobar</div><h3>Datos y seguimiento</h3><p>Una propuesta no significa que una actuación ya se haya realizado. Consulta quién es responsable, qué se sabe y qué falta por confirmar.</p><a class="btn" href="#fuentes" style="background:white;color:#101b2d">Ver metodología ↗</a></article></div></section>
@@ -105,6 +128,56 @@ h2{font-size:clamp(2.5rem,6vw,5.4rem);letter-spacing:-.085em;line-height:.9}
 <div class="modal" id="modal" role="dialog" aria-modal="true"><div class="dialog"><div class="dialogtop"><div class="kicker" id="mk">Información</div><button class="close" id="close" aria-label="Cerrar">×</button></div><h2 id="mt"></h2><div id="mb"></div></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+const neighborhoodData=[
+{name:'Barbate · núcleo urbano',type:'sector',label:'Núcleo urbano',detail:'Dividir el casco urbano por barrios y calles mediante cartografía municipal antes de asignar incidencias.',topics:['Limpieza','Pavimento y acerado','Accesibilidad','Alumbrado','Equipamientos']},
+{name:'La Breña',type:'barrio',label:'Barriada / zona urbana',detail:'Confirmar denominación, límites y relación con las unidades territoriales municipales.',topics:['Espacio público','Accesibilidad','Mantenimiento']},
+{name:'Serafín Romeu · 58 Viviendas',type:'barrio',label:'Barriada',detail:'Contrastar denominación oficial y ámbito exacto con cartografía, servicios municipales y documentación pública.',topics:['Vivienda','Accesibilidad','Mantenimiento']},
+{name:'La Paz',type:'barrio',label:'Barriada por validar',detail:'Identificar calles y límites antes de asociar noticias o actuaciones.',topics:['Limpieza','Alumbrado','Espacio público']},
+{name:'Blas Infante',type:'barrio',label:'Barriada',detail:'Reunir incidencias con fecha, fuente primaria y respuesta de la administración; distinguir denuncias de hechos comprobados.',topics:['Accesibilidad','Alumbrado','Limpieza','Pavimento']},
+{name:'El Pinar',type:'barrio',label:'Zona por delimitar',detail:'Verificar nombre y límites en cartografía municipal antes de crear un inventario de calles.',topics:['Espacio público','Movilidad','Mantenimiento']},
+{name:'Bahía de Barbate',type:'barrio',label:'Zona por validar',detail:'Confirmar si la denominación corresponde a una barriada, promoción residencial o sector de uso local.',topics:['Vivienda','Servicios','Accesibilidad']},
+{name:'Calle de los Maestros',type:'sector',label:'Calle / sector',detail:'Tratar como ubicación concreta, no como barrio, hasta comprobar su adscripción territorial.',topics:['Pavimento','Accesibilidad','Alumbrado']},
+{name:'Calle Bajel',type:'sector',label:'Calle / sector',detail:'Tratar como ubicación concreta, no como barrio, hasta comprobar su adscripción territorial.',topics:['Pavimento','Limpieza','Accesibilidad']},
+{name:'San José',type:'barrio',label:'Barriada por validar',detail:'Confirmar localización y límites; recopilar actuaciones y avisos fechados sin atribuirlos a toda la zona.',topics:['Limpieza','Alumbrado','Servicios']},
+{name:'El Chinar',type:'barrio',label:'Zona residencial',detail:'Contrastar las referencias públicas sobre vivienda y mantenimiento con expedientes y respuesta de la administración competente.',topics:['Vivienda','Mantenimiento','Servicios']},
+{name:'El Matadero',type:'barrio',label:'Zona por validar',detail:'Verificar denominación local, calles incluidas y estado administrativo de cualquier actuación citada.',topics:['Urbanismo','Servicios','Accesibilidad']},
+{name:'Carrero Blanco',type:'barrio',label:'Zona por validar',detail:'Confirmar el nombre actual, los límites y la nomenclatura vigente con fuentes municipales.',topics:['Vía pública','Alumbrado','Accesibilidad']},
+{name:'Fátima',type:'barrio',label:'Zona por validar',detail:'Confirmar denominación y localización antes de vincular información o propuestas.',topics:['Servicios','Espacio público','Accesibilidad']},
+{name:'El Jarillo / El Amarillo',type:'barrio',label:'Sector residencial por verificar',detail:'Comprobar si los nombres son equivalentes o designan ámbitos distintos y verificar el estado de las actuaciones de vivienda citadas.',topics:['Vivienda','Urbanismo','Servicios']},
+{name:'Real Almadraba',type:'barrio',label:'Zona por validar',detail:'Verificar denominación y límites antes de incorporar necesidades o incidencias.',topics:['Servicios','Movilidad','Espacio público']},
+{name:'Zahara de los Atunes',type:'nucleo',label:'Núcleo de población',detail:'Separar actuaciones municipales, provinciales, autonómicas y de otras entidades; comprobar movilidad, saneamiento y servicios estacionales.',topics:['Saneamiento','Movilidad','Limpieza','Servicios estacionales']},
+{name:'Los Caños de Meca',type:'nucleo',label:'Núcleo / zona costera',detail:'Verificar límites del núcleo y competencias en movilidad, servicios de temporada y conservación del entorno.',topics:['Movilidad','Limpieza','Saneamiento','Litoral']},
+{name:'Zahora',type:'nucleo',label:'Núcleo / diseminado por delimitar',detail:'Confirmar adscripción territorial y alcance de los servicios; no presuponer que todas las viviendas comparten las mismas necesidades.',topics:['Caminos','Saneamiento','Transporte','Servicios']},
+{name:'San Ambrosio',type:'rural',label:'Entorno rural',detail:'Inventariar accesos, caminos, servicios y patrimonio con ubicación y titularidad verificadas.',topics:['Caminos','Transporte','Servicios rurales']},
+{name:'El Cañillo',type:'rural',label:'Zona rural por verificar',detail:'Relacionar posibles actuaciones de caminos o drenaje únicamente con expedientes y localizaciones confirmadas.',topics:['Drenaje','Caminos','Infraestructuras']},
+{name:'La Oscuridad',type:'rural',label:'Zona rural por verificar',detail:'Comprobar nombre, ubicación, titularidad de caminos y documentación de actuaciones antes de describir problemas.',topics:['Drenaje','Caminos','Infraestructuras']},
+{name:'Guadabeca',type:'rural',label:'Zona rural por verificar',detail:'Reunir cartografía y expedientes técnicos antes de atribuir daños o actuaciones a esta zona.',topics:['Drenaje','Caminos','Infraestructuras']},
+{name:'Manzanete',type:'rural',label:'Entorno rural',detail:'Verificar localización, accesos y servicios disponibles con fuentes municipales y cartográficas.',topics:['Caminos','Movilidad','Servicios rurales']},
+{name:'La Muela',type:'rural',label:'Entorno rural',detail:'Confirmar delimitación y recopilar información sobre caminos y acceso a servicios.',topics:['Caminos','Movilidad','Servicios rurales']},
+{name:'La Oliva',type:'rural',label:'Entorno rural',detail:'Verificar límites, vías de acceso y servicios asociados antes de registrar necesidades.',topics:['Caminos','Movilidad','Servicios rurales']},
+{name:'Ribera de la Oliva',type:'rural',label:'Entorno rural por verificar',detail:'Confirmar si la denominación identifica un ámbito diferenciado de La Oliva en fuentes oficiales.',topics:['Caminos','Drenaje','Servicios rurales']},
+{name:'El Soto',type:'rural',label:'Entorno rural por verificar',detail:'Localizar en cartografía oficial y comprobar qué administración es responsable de caminos e infraestructuras.',topics:['Caminos','Drenaje','Servicios rurales']},
+{name:'Sierra del Retín',type:'rural',label:'Entorno territorial',detail:'No tratar como barrio residencial. Identificar titularidades, usos y competencias antes de incorporar actuaciones.',topics:['Medio ambiente','Accesos','Competencias']},
+{name:'Diseminados del término municipal',type:'rural',label:'Categoría territorial',detail:'Registrar por ubicación concreta y proteger los datos personales; no publicar direcciones privadas ni información identificativa de residentes.',topics:['Acceso a servicios','Caminos','Conectividad','Transporte']}
+];
+function renderNeighborhoods(){
+ const grid=document.getElementById('neighborhoodGrid');
+ if(!grid)return;
+ const q=(document.getElementById('neighborhoodSearch').value||'').trim().toLocaleLowerCase('es');
+ const type=document.getElementById('neighborhoodFilter').value;
+ const filtered=neighborhoodData.filter(z=>(type==='all'||z.type===type)&&(z.name+' '+z.label+' '+z.detail+' '+z.topics.join(' ')).toLocaleLowerCase('es').includes(q));
+ grid.innerHTML='';
+ filtered.forEach(z=>{
+  const b=document.createElement('button');b.type='button';b.className='neighborhood-card';
+  b.innerHTML='<div class="neighborhood-top"><span class="neighborhood-type">'+z.label+'</span><span class="neighborhood-status">Por validar</span></div><h3>'+z.name+'</h3><p>'+z.topics.join(' · ')+'</p><span class="open-detail">Abrir ficha de investigación ↗</span>';
+  b.addEventListener('click',()=>show('Inventario territorial · pendiente de contraste',z.name,'<div class="block"><b>Estado</b><span>Ficha inicial de trabajo. Denominación, límites y adscripción administrativa pendientes de verificación.</span></div><div class="block"><b>Línea de investigación</b><span>'+z.detail+'</span></div><div class="block"><b>Temas que se revisarán</b><span>'+z.topics.join(' · ')+'</span></div><div class="block"><b>Qué debe contener una incidencia</b><span>Ubicación pública precisa, fecha, fuente verificable, administración competente, respuesta oficial y estado actualizado. No se publicarán datos personales de residentes.</span></div><div class="block"><b>Fuentes iniciales</b><p><a href="https://www.barbate.es/" target="_blank" rel="noopener">Ayuntamiento de Barbate ↗</a></p><p><a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/sima/ficha.htm?mun=11007" target="_blank" rel="noopener">Estadística oficial municipal (IECA) ↗</a></p><p><a href="https://www.openstreetmap.org/search?query='+encodeURIComponent(z.name+' Barbate Cádiz')+'" target="_blank" rel="noopener">Consultar cartografía abierta ↗</a></p></div><div class="block"><b>Importante</b><span>Esta ficha no afirma que exista un problema ni que una actuación esté pendiente. Es una lista de comprobaciones para completar con documentación y fechas.</span></div>'));
+  grid.appendChild(b);
+ });
+ document.getElementById('neighborhoodCount').textContent='Mostrando '+filtered.length+' de '+neighborhoodData.length+' fichas territoriales · inventario inicial, no listado administrativo definitivo.';
+}
+document.getElementById('neighborhoodSearch').addEventListener('input',renderNeighborhoods);
+document.getElementById('neighborhoodFilter').addEventListener('change',renderNeighborhoods);
+renderNeighborhoods();
 const data=[
 ['01','Servicios públicos','✳','servicios','Mantenimiento, limpieza, equipamientos y calidad de los servicios.'],
 ['02','Vivienda','⌂','servicios','Acceso a vivienda, rehabilitación y coordinación administrativa.'],
