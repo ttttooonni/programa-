@@ -1,4 +1,4 @@
-const CACHE='ciudadano-v3';
+const CACHE='ciudadano-v4-barrios';
 const CORE=['./','./index.html','./manifest.webmanifest'];
 
 self.addEventListener('install',event=>{
